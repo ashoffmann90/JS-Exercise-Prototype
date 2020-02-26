@@ -39,9 +39,27 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
 
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
 }
+
+Person.prototype.eat = function(someFood) {
+  if (this.stomach.length < 10) {
+    return this.stomach.push(someFood)
+  }
+};
+
+Person.prototype.poop = function() {
+  return (this.stomach = []);
+};
+
+Person.prototype.toString = function() {
+  return `${this.name}, ${this.age}`;
+};
+
 
 /*
   TASK 2
@@ -57,9 +75,19 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-
+function Car(model, milesPerGallon) {
+  this.tank = 0;
+  this.odometer = 0;
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
 }
+
+Car.prototype.fill = function(gallon){
+  this.tank += gallon;
+}
+
+
+
 
 /*
   TASK 3
@@ -68,18 +96,28 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name, age);
+  this.favoriteToy = favoriteToy;
+}
 
+Baby.prototype = Object.create(Person.prototype);
+Baby.prototype.play = function(){
+  return `Playing with ${this.favoriteToy}`
 }
 
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+
+  1. Window/Global Binding - 'this' will refer to the browser window or the console
+
+  2. Implicit Binding - 'this' is implied, meaning that whatever is on the left side of the dot is what 'this' refers to.
+
+  3. New Binding - 'this' refers to the object that is created when using a Constructor Function.
+
+  4. Explicit Binding - 'this' refers to whatever we decide to bind to 'this' with .call .bind and .apply
 */
 
 
